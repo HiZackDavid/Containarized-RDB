@@ -1,9 +1,11 @@
 CREATE DATABASE TestStageDB;
 
+CREATE EXTENSION IF NOT EXISTS vector;
+
 CREATE TABLE exemple(
   id UUID PRIMARY KEY,
   text TEXT,
-  vector pg_catalog.pgvector(1536)
+  vector vector(1536)
 );
 
 CREATE USER ialab WITH PASSWORD 'stage2023';
