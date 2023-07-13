@@ -1,14 +1,14 @@
 # Getting base image for PostgreSQL
 FROM postgres:15.2
 
-# Installing the necessary dependancies for the pgvector extension
-RUN apt-get update && apt-get install -y build-essential
+# Installing pgvector extension
+RUN apt-get update && apt-get install -y postgresql-15-pgvector
 
-# Cloning pgvector extension repository
-RUN git clone https://github.com/pgvector/pgvector.git /pgvector
+# Copy sql file with instruction on the creation of the database and tables into the container
+COPY init.sql /docker-entrypoint-initdb.d/
 
-# Compiling and building pgvector extension using the "make" provided
-RUN cd /pgvector && make && make install
+# Expose the default PostgreSQL port
+EXPOSE 5432
 
-# Copy the personalised configuration file for postgresql inside the image for later configuration
-COPY postgresql.conf /etc/postgresql/postgresql.conf
+# Starting the PostgreSQL server
+CMD ["postgres"]
