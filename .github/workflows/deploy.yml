@@ -1,0 +1,23 @@
+name: Continuous deployment
+
+# On push events to the main branch
+on:
+  push:
+    branches:
+      - main
+
+# Steps are done on ubuntu virtual machine
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      #Get our source code into the VM
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: hizackdavid/postgresql-container:latest
