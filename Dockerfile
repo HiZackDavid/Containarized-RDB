@@ -12,3 +12,5 @@ EXPOSE 5432
 
 # Starting the PostgreSQL server
 CMD ["postgres"]
+
+ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
