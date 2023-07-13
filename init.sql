@@ -7,6 +7,11 @@ CREATE TABLE exemple(
   PRIMARY KEY (id)
 );
 
+CREATE USER ialab WITH PASSWORD 'stage2023';
+
+GRANT CONNECT ON DATABASE TestStageDB TO ialab;
+GRANT USAGE, SELECT ON ALL TABLES IN SCHEMA public TO ialab;
+
 INSERT INTO exemple (id, text, vector)
 VALUES ('uuid1', 'Le premier texte.', '{0.1, 0.2, 0.3, 0.4, 0.5}')
 
